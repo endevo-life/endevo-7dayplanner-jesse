@@ -252,7 +252,7 @@ export async function generatePlan(payload: AssessmentPayload): Promise<PlanResu
   try {
     const client    = new Anthropic({ apiKey });
     const { system, user } = buildPrompt(payload);
-    const timeoutMs = parseInt(process.env.AI_TIMEOUT_MS ?? '10000', 10);
+    const timeoutMs = parseInt(process.env.AI_TIMEOUT_MS ?? '30000', 10);
     const model     = process.env.AI_MODEL || 'claude-sonnet-4-6';
 
     console.log(`[AI] Calling Claude (model: ${model}, timeout: ${timeoutMs}ms, tier: ${payload.tier})`);
