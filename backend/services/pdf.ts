@@ -45,19 +45,30 @@ const TIER_COLORS: Record<string, RGB> = {
 };
 
 // ── Asset loaders ────────────────────────────────────────────────────────────
-// process.cwd() = backend/ locally (node dist/server.js) and /var/task/ on Vercel
-const LOGO_PATH  = path.resolve(process.cwd(), 'logo_endevo_resized_blue.png');
-const JESSE_PATH = path.resolve(process.cwd(), 'Jesse-image.png');
-
-function loadLogo(): Buffer | null {
-  try { return fs.readFileSync(LOGO_PATH); }
-  catch (_) { console.warn('[PDF] Logo not found at', LOGO_PATH); return null; }
+// Try multiple candidate paths: __dirname works with ts-node locally and in
+// Vercel's TypeScript runtime; process.cwd() works when running compiled JS.
+function resolveAsset(filename: string): string[] {
+  return [
+    path.resolve(__dirname, filename),
+    path.resolve(__dirname, '..', filename),
+    path.resolve(process.cwd(), filename),
+  ];
 }
 
-function loadJesse(): Buffer | null {
-  try { return fs.readFileSync(JESSE_PATH); }
-  catch (_) { console.warn('[PDF] Jesse image not found at', JESSE_PATH); return null; }
+function loadAsset(filename: string): Buffer | null {
+  for (const candidate of resolveAsset(filename)) {
+    try {
+      const buf = fs.readFileSync(candidate);
+      console.log(`[PDF] Loaded ${filename} from ${candidate}`);
+      return buf;
+    } catch (_) { /* try next */ }
+  }
+  console.warn(`[PDF] ${filename} not found in any candidate path`);
+  return null;
 }
+
+function loadLogo():  Buffer | null { return loadAsset('logo_endevo_resized_blue.png'); }
+function loadJesse(): Buffer | null { return loadAsset('Jesse-image.png'); }
 
 // ── Circular clipped image ────────────────────────────────────────────────────
 function drawCircleImage(
