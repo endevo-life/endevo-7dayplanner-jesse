@@ -1,19 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
+/* Reset */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: #0f172a;
-  color: white;
-  min-height: 100vh;
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
-/* Noise overlay — applied on every screen */
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #0f172a;
+  color: white;
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+input, textarea, select {
+  font: inherit;
+}
+
+/* Shared noise overlay (used in multiple screens) */
 .noise-overlay {
   position: fixed;
   inset: 0;
@@ -23,25 +45,22 @@ body {
   z-index: 0;
 }
 
-/* Shared top nav (Quiz / Capture / Loading / Confirmation) */
-.screen-nav {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2rem;
-}
-
-.screen-nav-logo {
-  width: 170px;
-  height: auto;
-}
-
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(249, 115, 22, 0.4); border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(249,115,22,0.4);
+  border-radius: 100px;
+}
 
 /* Selection */
-::selection { background: rgba(249, 115, 22, 0.3); }
+::selection {
+  background: rgba(249,115,22,0.3);
+  color: white;
+}
