@@ -46,7 +46,7 @@ const TIER_COLORS: Record<string, RGB> = {
 
 // ── Asset loaders ────────────────────────────────────────────────────────────
 // process.cwd() = backend/ locally (node dist/server.js) and /var/task/ on Vercel
-const LOGO_PATH  = path.resolve(process.cwd(), 'logo_v2_with_white_text.png');
+const LOGO_PATH  = path.resolve(process.cwd(), 'logo_endevo_resized_blue.png');
 const JESSE_PATH = path.resolve(process.cwd(), 'Jesse-image.png');
 
 function loadLogo(): Buffer | null {
