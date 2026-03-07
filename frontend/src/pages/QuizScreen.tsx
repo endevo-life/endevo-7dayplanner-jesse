@@ -55,6 +55,12 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
       {/* Top bar */}
       <div className="quiz-topbar">
         <div className="quiz-nav-left">
+          <img src="/logo_v2_with_white_text.png" alt="ENDevo" className="quiz-brand-logo" />
+        </div>
+        <div className="quiz-progress-info">
+          Q<strong>{currentQuestion + 1}</strong> of {QUESTIONS.length}
+        </div>
+        <div className="quiz-nav-right">
           {currentQuestion > 0 && (
             <button className="back-btn" onClick={onBack} aria-label="Go back">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -62,12 +68,6 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
               </svg>
             </button>
           )}
-        </div>
-        <div className="quiz-progress-info">
-          Q<strong>{currentQuestion + 1}</strong> of {QUESTIONS.length}
-        </div>
-        <div className="quiz-brand">
-          <span className="brand-dot-sm" />ENDevo
         </div>
       </div>
 

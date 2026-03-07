@@ -1,6 +1,13 @@
+
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { score } from './services/scoring';
+import { generatePlan } from './services/ai';
+import { generatePDF } from './services/pdf';
+import { sendPlanEmail } from './services/email';
+import { asyncHandler, errorHandler, notFoundHandler } from './middleware/errorHandler';
+import type { AnswerLetter } from './types/index';
 
 dotenv.config();
 
@@ -32,19 +39,48 @@ app.get('/api/health', (_req, res) => {
 
 // ─── Main assessment route ────────────────────────────────────────────────────
 
-app.post('/api/assess', async (req, res) => {
-  const { name, email, answers } = req.body;
+app.post('/api/assess', asyncHandler(async (req, res) => {
+  const { name, email, answers: rawAnswers } = req.body;
 
-  // TODO (Aryan): validate input
-  // TODO (Aryan): call scoring service
-  // TODO (Aryan): call AI service (generatePlan)
-  // TODO (Aryan): call PDF service (generatePDF)
-  // TODO (Aryan): call email service (sendPlanEmail)
+  if (!name || !email || !rawAnswers) {
+    res.status(400).json({ success: false, message: 'Missing name, email, or answers', code: 'VALIDATION_ERROR' });
+    return;
+  }
 
-  console.log('Received assessment for:', name, email, answers?.length, 'answers');
+  // Convert frontend format { q1_phone_access: { answer: 'A', ... } }
+  // to backend scoring format [{ q: 1, answer: 'A' }]
+  const answers = Object.entries(rawAnswers as Record<string, { answer: string }>)
+    .map(([key, val]) => ({
+      q: parseInt(key.match(/^q(\d+)/)?.[1] ?? '0', 10),
+      answer: val.answer as AnswerLetter,
+    }))
+    .filter(a => a.q > 0);
+
+  const scoringResult = score(answers);
+  const payload = { name, email, ...scoringResult };
+
+  const { plan } = await generatePlan(payload);
+
+  const pdfBuffer = await generatePDF({
+    name,
+    readiness_score: scoringResult.readiness_score,
+    tier:            scoringResult.tier,
+    domain_scores:   scoringResult.domain_scores,
+    plan,
+  });
+
+  await sendPlanEmail({
+    name,
+    email,
+    score: scoringResult.readiness_score,
+    tier:  scoringResult.tier,
+    pdfBuffer,
+  });
+
+  console.log('Assessment complete for:', name, '| Score:', scoringResult.readiness_score, '| Tier:', scoringResult.tier);
 
   res.json({ success: true, message: 'Plan sent successfully' });
-});
+}));
 
 // ─── Start ────────────────────────────────────────────────────────────────────
 

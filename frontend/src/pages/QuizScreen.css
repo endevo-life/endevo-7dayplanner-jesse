@@ -21,7 +21,8 @@
 }
 
 .quiz-nav-left {
-  width: 80px;
+  display: flex;
+  align-items: center;
 }
 
 .back-btn {
@@ -54,25 +55,17 @@
   color: #f97316;
 }
 
-.quiz-brand {
-  font-family: 'Sora', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: rgba(255,255,255,0.5);
-  letter-spacing: 0.05em;
+.quiz-nav-right {
+  width: 44px;
   display: flex;
   align-items: center;
-  gap: 5px;
-  width: 80px;
   justify-content: flex-end;
 }
 
-.brand-dot-sm {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #f97316;
-  display: inline-block;
+.quiz-brand-logo {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
 }
 
 /* Progress bar */
