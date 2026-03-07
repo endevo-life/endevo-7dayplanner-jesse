@@ -1,6 +1,9 @@
-// Shared TypeScript types for Jesse frontend
-
-export type AppScreen = 'landing' | 'quiz' | 'capture' | 'loading' | 'confirmation';
+export type AppScreen =
+  | "landing"
+  | "quiz"
+  | "capture"
+  | "loading"
+  | "confirmation";
 
 export interface UserAnswers {
   [questionId: string]: {
