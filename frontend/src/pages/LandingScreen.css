@@ -19,34 +19,25 @@
 
 .landing-nav {
   width: 100%;
-  max-width: 900px;
   display: flex;
+  align-items: center;
   justify-content: flex-start;
-  padding: 1.5rem 2rem;
+  padding: 0.875rem 2rem;
   position: relative;
   z-index: 2;
+  background: transparent;
+  flex-shrink: 0;
 }
 
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
 }
 
-.brand-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #f97316;
-  display: inline-block;
-}
-
-.brand-name {
-  font-family: 'Sora', sans-serif;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: #fff;
-  letter-spacing: 0.05em;
+.brand-logo-image {
+  width: 170px;
+  height: auto;
+  object-fit: contain;
 }
 
 .landing-hero {
@@ -55,20 +46,43 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 2rem 1.5rem 4rem;
+  padding: 1rem 2rem 3rem;
   position: relative;
   z-index: 2;
-  max-width: 760px;
+  max-width: 1100px;
   width: 100%;
+}
+
+/* Two-column grid */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Jesse Avatar */
 .jesse-avatar-wrap {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  margin-bottom: 2rem;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
   animation: floatIn 0.8s ease both;
 }
 
@@ -94,20 +108,31 @@
   backdrop-filter: blur(10px);
 }
 
+.jesse-image {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(249,115,22,0.45);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
 .jesse-label {
   font-family: 'Sora', sans-serif;
   font-size: 0.75rem;
   color: rgba(249,115,22,0.9);
   letter-spacing: 0.08em;
   font-weight: 600;
-  margin-top: 0.75rem;
   text-transform: uppercase;
 }
 
 /* Headline */
 .landing-headline {
   font-family: 'Sora', sans-serif;
-  font-size: clamp(2rem, 6vw, 3.25rem);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
   font-weight: 800;
   color: #fff;
   line-height: 1.2;
@@ -136,10 +161,10 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   animation: slideUp 0.7s ease 0.3s both;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .stat-pill {
@@ -159,6 +184,63 @@
   height: 4px;
   border-radius: 50%;
   background: rgba(249,115,22,0.6);
+}
+
+.jesse-intro {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.82);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.25rem;
+  max-width: 620px;
+  animation: slideUp 0.7s ease 0.35s both;
+}
+
+.jesse-intro strong {
+  color: #fbbf24;
+}
+
+.jesse-video-wrap {
+  width: 100%;
+  max-width: 440px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.06);
+  animation: slideUp 0.7s ease 0.38s both;
+  position: relative;
+}
+
+.jesse-video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.video-sound-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  backdrop-filter: blur(4px);
+  z-index: 3;
+}
+
+.video-sound-btn:hover {
+  background: rgba(249,115,22,0.7);
 }
 
 /* CTA Button */
@@ -211,6 +293,60 @@
 .landing-wave svg {
   width: 100%;
   height: 100%;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .hero-left {
+    align-items: center;
+    text-align: center;
+  }
+  .landing-stats {
+    justify-content: center;
+  }
+  .jesse-avatar-wrap {
+    justify-content: center;
+  }
+  .jesse-intro {
+    text-align: center;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .landing-nav {
+    padding: 1rem 1.25rem;
+  }
+  .landing-hero {
+    padding: 1rem 1.25rem 3rem;
+  }
+  .jesse-video-wrap {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+  .cta-button {
+    width: 100%;
+    justify-content: center;
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+  }
+  .stat-divider {
+    display: none;
+  }
+  .landing-stats {
+    gap: 0.5rem;
+  }
+  .brand-logo-image {
+    width: 130px;
+  }
+  .jesse-intro {
+    font-size: 0.88rem;
+    padding: 0.75rem 0.875rem;
+  }
 }
 
 /* Animations */
