@@ -1,7 +1,7 @@
 {
   "name": "jesse-backend",
   "version": "1.0.0",
-  "description": "Jesse Digital Readiness Scanner — Backend API",
+  "description": "Jesse Digital Readiness Planner — Backend API",
   "main": "dist/server.js",
   "scripts": {
     "dev": "nodemon --exec ts-node server.ts",
